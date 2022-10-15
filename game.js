@@ -2,13 +2,13 @@ const gameState = {
     score: 0,
 	life: 3,
 	width: 2000,
-	height: 500,
+	height: 400,
 	  };
 
 const config = {
   type: Phaser.AUTO,
   width: 800,
-	height: 1000,
+	height: 400,
 	//backgroundColor: "b9eaff",
 	physics: {
 		default: 'arcade',
