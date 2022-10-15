@@ -63,7 +63,7 @@ create () {
    })
 
     //Player
-	this.player = this.physics.add.sprite(0, 0,'magicalGirl').setScale(.35);
+	this.player = this.physics.add.sprite(5, 5,'magicalGirl').setScale(.35);
     this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
     this.physics.world.setBounds(0, 0, gameState.width, gameState.height)
     this.cameras.main.startFollow(this.player);
@@ -100,7 +100,6 @@ create () {
           })
     });
 
-
 	}
 
 update () {
@@ -119,5 +118,10 @@ update () {
 	else {
 		this.player.setVelocityX(0);
 	}
+    if (this.player.y > 425){this.cameras.main.shake(240, .01, false, function(camera, progress) {
+        if(progress > .9) {
+          this.scene.restart(this.GameScene)}
+      });
+    }
 }
 }
