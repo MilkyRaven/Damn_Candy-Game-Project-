@@ -24,9 +24,21 @@ create () {
     //Background
     //this.add.image(200, 200, 'background');
     
-    //Platfom
+    //Demo Platfoms
     const platforms = this.physics.add.staticGroup();
-	platforms.create(300, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+	platforms.create(10, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(100, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(300, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(450, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(600, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(700, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(800, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1000, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1200, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1500, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1600, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1700, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(2000, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
 
     //Obstacles
 	// const obstacles = this.physics.add.staticGroup();
@@ -51,12 +63,13 @@ create () {
    })
 
     //Player
-	this.player = this.physics.add.sprite(20, 0,'magicalGirl').setScale(.35);
-    this.cameras.main.setBounds(0, 0, 2000, 500);
-    this.cameras.main.startFollow(this.player);	
+	this.player = this.physics.add.sprite(0, 0,'magicalGirl').setScale(.35);
+    this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
+    this.physics.world.setBounds(0, 0, gameState.width, gameState.height)
+    this.cameras.main.startFollow(this.player);
 
     // so it doesn't fall from the platform
-    //this.player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 	
     //Collisions
     this.physics.add.collider(this.player, platforms);
