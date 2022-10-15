@@ -14,7 +14,7 @@ preload () {
 create () {
 
     // //Score
-    gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'});
+    gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'})
     
     //Demo Platfoms
     const platforms = this.physics.add.staticGroup();
@@ -60,20 +60,6 @@ create () {
     //Collisions
     this.physics.add.collider(this.player, platforms);
     
-    let stars = this.physics.add.group({
-        key: 'star',
-        repeat: 20,
-        setXY: { x: 210, y: 0, stepX: 70 }
-    });
-
-    this.physics.add.collider(stars, platforms);
-    
-    stars.children.iterate(function (child) {
-    
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    
-    });
-
     //Update score
     this.physics.add.collider(enemies, platforms, function (enemy){
         enemy.destroy();
@@ -100,7 +86,6 @@ create () {
 
 update () {
     //update gamer input
-
     const cursors = this.input.keyboard.createCursorKeys();
 
 	if(cursors.left.isDown){
@@ -113,7 +98,7 @@ update () {
 	else {
 		this.player.setVelocityX(0);
 	}
-    if (this.player.y > 355){this.cameras.main.shake(240, .01, false, function(camera, progress) {
+    if (this.player.y > 325){this.cameras.main.shake(240, .01, false, function(camera, progress) {
         if(progress > .9) {
           this.scene.restart(this.GameScene)}
       });
