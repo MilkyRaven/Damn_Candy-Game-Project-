@@ -13,7 +13,7 @@ preload () {
 
 create () {
 
-    //Score
+    // //Score
     gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'})
     
     //Demo Platfoms
@@ -41,14 +41,14 @@ create () {
 
     //enemy loop
    let enemyGenLoop = this.time.addEvent({
-    delay: 300,
+    delay: 250,
     callback: generateEnemy,
     callbackScope: this,
     loop: true 
    })
 
    //Player
-	this.player = this.physics.add.sprite(5, 40,'magicalGirl').setScale(.35);
+	this.player = this.physics.add.sprite(5, 40, 'magicalGirl').setScale(0.3);
     this.player.setBounce(0.2);
     this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
     this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
@@ -85,7 +85,6 @@ create () {
 }
 
 update () {
-    
     //update gamer input
     const cursors = this.input.keyboard.createCursorKeys();
 
@@ -94,12 +93,12 @@ update () {
 	} else if (cursors.right.isDown) {
 		this.player.setVelocityX(300)}
 	 else if (cursors.space.isDown && this.player.body.touching.down) {
-		this.player.setVelocityY(-400)
+		this.player.setVelocityY(-500)
 	 }
 	else {
 		this.player.setVelocityX(0);
 	}
-    if (this.player.y > 425){this.cameras.main.shake(240, .01, false, function(camera, progress) {
+    if (this.player.y > 355){this.cameras.main.shake(240, .01, false, function(camera, progress) {
         if(progress > .9) {
           this.scene.restart(this.GameScene)}
       });
