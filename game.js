@@ -1,5 +1,8 @@
 const gameState = {
     score: 0,
+	maxHearts: 3,
+	minHearts: 0,
+	hearts: 3,
 	width: 2000,
 	height: 400,
 	  };

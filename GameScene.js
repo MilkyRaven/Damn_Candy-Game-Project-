@@ -21,10 +21,11 @@ create () {
     this.cameras.main.startFollow(this.player);
     
     //Hud Container
-    let scoreText = this.add.text(100, 30, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
+    let scoreText = this.add.text(100, 27, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
+    let heartText = this.add.text(165, 27, `${gameState.hearts}`, {fill: '#FFFFFF', fontSize: '20px'}, )
     let hub = this.add.image(100, 35, 'hub').setScale(1);
     let contenedor = this.add.container(10, 10);
-     contenedor.add([hub, scoreText]);
+     contenedor.add([hub, scoreText, heartText]);
      this.tweens.add({
          targets: contenedor,
          duration: 800,
@@ -49,8 +50,6 @@ create () {
     platforms.create(1700, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(2000, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
     
-    // //Score
-    //gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'})
 
      // so the player doesn't fall from the platform
      this.player.setCollideWorldBounds(true);
@@ -106,7 +105,7 @@ update () {
 	} else if (cursors.right.isDown) {
 		this.player.setVelocityX(300)}
 	 else if (cursors.space.isDown && this.player.body.touching.down) {
-		this.player.setVelocityY(-500)
+		this.player.setVelocityY(-400)
 	 }
 	else {
 		this.player.setVelocityX(0);
