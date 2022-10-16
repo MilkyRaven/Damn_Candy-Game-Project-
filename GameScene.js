@@ -83,7 +83,7 @@ preload () {
     let stars = this.physics.add.group({
         key: 'star',
         repeat: 70,
-        setXY: { x: 12, y: 0, stepX: 70 }
+        setXY: { x: 120, y: 0, stepX: 70 }
     });
     
     stars.children.iterate(function (child) {
