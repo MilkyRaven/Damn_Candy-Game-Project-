@@ -1,6 +1,5 @@
 const gameState = {
     score: 0,
-	life: 3,
 	width: 2000,
 	height: 400,
 	  };

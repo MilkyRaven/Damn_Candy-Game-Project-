@@ -8,6 +8,7 @@ preload () {
     this.load.image('magicalGirl', 'img/magical girl.png');
 	this.load.image('plataforma', 'img/plataforma.png');
     this.load.image('enemy', 'img/enemy.png');
+    this.load.image('hub', 'img/hub.png')
 }
 
 create () {
@@ -19,6 +20,18 @@ create () {
     this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
     this.cameras.main.startFollow(this.player);
     
+    //Hud Container
+    let scoreText = this.add.text(100, 30, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
+    let hub = this.add.image(100, 35, 'hub').setScale(1);
+    let contenedor = this.add.container(10, 10);
+     contenedor.add([hub, scoreText]);
+     this.tweens.add({
+         targets: contenedor,
+         duration: 800,
+         y: 0
+     });
+     contenedor.setScrollFactor(0);
+     //end test    
 
     //Demo Platfoms
     const platforms = this.physics.add.staticGroup();
@@ -37,7 +50,7 @@ create () {
     platforms.create(2000, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
     
     // //Score
-    gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'})
+    //gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'})
 
      // so the player doesn't fall from the platform
      this.player.setCollideWorldBounds(true);
@@ -65,7 +78,7 @@ create () {
         enemy.destroy();
        
         gameState.score += 5;
-        gameState.scoreText.setText(`Score: ${gameState.score}`)
+        //gameState.scoreText.setText(`Score: ${gameState.score}`)
       })
 
       //Losing condition
@@ -82,7 +95,7 @@ create () {
             this.scene.restart()
           })
     });
-    }
+}
 
 update () {
     //update gamer input
