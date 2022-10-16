@@ -5,18 +5,17 @@ class StartScene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.audio('pixel', 'sounds/pixel.wav');
+        this.load.audio('theme', 'sounds/gameTheme.wav');
         this.load.image('start', 'img/start-screen.png')
     }
     create(){
         //Music
-        gameState.pixel = this.sound.add('pixel');
-        gameState.pixel.loop = true;
-        gameState.pixel.play()
+        gameState.theme = this.sound.add('theme');
+        gameState.theme.loop = true;
+        gameState.theme.play()
         this.startScreen = this.add.image(400, 170, 'start').setScale(0.5);
         //this.startScreen.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
         this.input.on('pointerup', () => {
-            gameState.pixel.stop();
             this.scene.stop('StartScene');
             this.scene.start('GameScene');
         });

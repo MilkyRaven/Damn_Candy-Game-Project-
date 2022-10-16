@@ -14,7 +14,7 @@ class LevelClear extends Phaser.Scene {
             this.scene.stop('LevelClear');
             gameState.score = 0;
             gameState.hearts = 3;
-            this.scene.start('StartScene');  
+            this.scene.start('StartScene');
         });
     }
   }

@@ -11,12 +11,10 @@ preload () {
     this.load.image('magicalGirl', 'img/magical girl.png');
 	this.load.image('plataforma', 'img/plataforma.png');
     this.load.image('enemy', 'img/enemy.png');
-    this.load.image('hub', 'img/hub.png');
+    this.load.image('hud', 'img/hub.png');
     this.load.image('portal', 'img/portal.png');
-    this.load.image('sky', 'img/b1.png');
-    this.load.image('mountains', 'img/b2.png');
-    this.load.image('moon', 'img/b3.png');
     this.load.image('star', 'img/star.png')
+    this.load.audio('theme', 'sounds/gameTheme.wav');
 }
 
     // "DRAWING" THE SCENE -------------------------------------------------------------------------------------------
@@ -24,17 +22,6 @@ preload () {
     create () {
     
     //gameState.active = true  (I may need this later)
-
-    //BACKGROUND ------------------------------------------------------------------------------------------------------
-        //> Starry Night
-        this.add.image(0, 0, 'sky').setScale(0.8);
-        this.add.image(700, 0, 'sky').setScale(0.8);
-        this.add.image(1400, 0, 'sky').setScale(0.8);
-        this.add.image(1900, 0, 'sky').setScale(0.8);
-        
-        //> Moon
-        let moon = this.add.image(500, 100, 'moon').setScale(0.6);
-        moon.setScrollFactor(0);
     
     //PORTAL ---------------------------------------------------------------------------------------------------------
         let endLevel = this.physics.add.sprite(1985, 60, 'portal').setScale(0.2);
@@ -54,11 +41,11 @@ preload () {
             }
     
     //HUD CONTAINER ----------------------------------------------------------------------------------------------------
-    let scoreText = this.add.text(100, 27, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
+    let scoreText = this.add.text(68, 32, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
     let heartText = this.add.text(165, 27, `${gameState.hearts}`, {fill: '#FFFFFF', fontSize: '20px'}, )
-    let hub = this.add.image(100, 35, 'hub').setScale(1);
+    let hud = this.add.image(100, 35, 'hud').setScale(1);
     let contenedor = this.add.container(10, 10);
-     contenedor.add([hub, scoreText, heartText]);
+     contenedor.add([hud, scoreText, heartText]);
      this.tweens.add({
          targets: contenedor,
          duration: 800,
