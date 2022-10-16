@@ -4,12 +4,13 @@ class EndingScene extends Phaser.Scene {
     }
 
     preload () {
-        //this.load.image('end', '')
+        this.load.image('end', 'img/gameover.png')
     }
     create(){
-        //this.add.image(400, 250, 'start');
-        this.input.on('pointerup', () => {
-            this.scene.stop('GameScene');
+        this.add.image(400, 250, 'end').setScale(0.5);
+
+            this.input.on('pointerup', () => {
+            this.scene.stop('EndingScene');
             this.scene.start('StartScene');  
         });
     }

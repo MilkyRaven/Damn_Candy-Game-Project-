@@ -1,7 +1,5 @@
 const gameState = {
     score: 0,
-	maxHearts: 3,
-	minHearts: 0,
 	hearts: 3,
 	width: 2000,
 	height: 400,
@@ -20,7 +18,7 @@ const config = {
 			debug: true,
 		}
 	},
-  scene: [StartScene, GameScene]
+  scene: [StartScene, GameScene, EndingScene]
 }
 
 const game = new Phaser.Game(config)

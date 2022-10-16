@@ -14,11 +14,16 @@ preload () {
 create () {
 
     //Player
-	this.player = this.physics.add.sprite(5, 40, 'magicalGirl').setScale(0.3);
-    this.player.setBounce(0.2);
+	let player = this.player = this.physics.add.sprite(5, 40, 'magicalGirl').setScale(0.3);
+    player.setBounce(0.2);
     this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
     this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
     this.cameras.main.startFollow(this.player);
+
+    //If player life is 1
+    if(gameState.hearts === 1){
+        player.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
+    }
     
     //Hud Container
     let scoreText = this.add.text(100, 27, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
@@ -71,28 +76,25 @@ create () {
     callbackScope: this,
     loop: true 
    })
-	
-    //Update score
+
+
+   //Update score
     this.physics.add.collider(enemies, platforms, function (enemy){
         enemy.destroy();
-       
-        gameState.score += 5;
-        //gameState.scoreText.setText(`Score: ${gameState.score}`)
+        //gameState.score += 5;
       })
       
       //Losing condition
     this.physics.add.collider(this.player, enemies, () => {
         // Logic to end the game
         enemyGenLoop.destroy();
-        gameState.score = 0;
+        //gameState.score = 0;
         gameState.hearts -= 1;
         this.scene.restart();
-        // this.add.text(this.player.x -50, this.player.y - 200, 'GAME OVER', {fontSize: '30px', fill:'#FFA8CF'})
-        // this.add.text(this.player. x - 50, this.player.y - 100, 'Click to Restart', {fontSize: '25px', fill:'#FFA8CF'})
-        
+
         //Re-starting the game
         this.input.on('pointerup', () => {
-            gameState.score = 0;
+            //gameState.score = 0;
             this.scene.restart()
           })
     });
@@ -112,12 +114,22 @@ update () {
 	else {
 		this.player.setVelocityX(0);
 	}
-    if (this.player.y > 325 || gameState.hearts === 0){this.cameras.main.shake(240, .01, false, function(camera, progress) {
-        if(progress > .9 || gameState.hearts === 0) {
-          this.scene.restart(this.GameScene)}
-          gameState.score = 0;
-          gameState.hearts = 3;
+    
+    //restarting the game
+    
+    if (this.player.y > 325){this.cameras.main.shake(240, .01, false, function(camera, progress) {
+        if(progress > .9) {
+        this.scene.restart(this.GameScene)
+        }
+        //gameState.score = 0;
+        gameState.hearts = 3;
       });
+    }
+    
+    if(gameState.hearts === 0) {
+            this.scene.stop('GameScene');
+            gameState.hearts = 3;
+            this.scene.start('EndingScene'); 
     }
 }
 }
