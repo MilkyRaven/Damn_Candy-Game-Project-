@@ -15,7 +15,7 @@ const config = {
 		arcade: {
 			gravity: {y: 700},
 			enableBody: true,
-			debug: true,
+			debug: false,
 		}
 	},
   scene: [StartScene, GameScene, EndingScene, LevelClear]
