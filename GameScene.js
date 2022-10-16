@@ -56,14 +56,23 @@ preload () {
 
     //PLATFORMS ---------------------------------------------------------------------------------------------------------
     const platforms = this.physics.add.staticGroup();
-	platforms.create(0, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+	//> FLOOR PLATFORMS
+    platforms.create(0, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
     //350 to 350 for a linear platform
-    platforms.create(350, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(700, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1000, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1500, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1700, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(2000, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(350, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(700, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1000, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1500, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1700, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(2000, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
+
+    //HIGH PLATFORMS
+    platforms.create(350, 200, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(700, 100, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(1000, 300, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(1500, 300, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(1700, 200, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(2000, 100, 'plataforma').setScale(0.5, 0.2).refreshBody();
     
 
      //CANDY STARDUST! 
@@ -90,45 +99,32 @@ preload () {
         function collectStar (player, star) {
         star.disableBody(true, true);
         gameState.score += 10;
-        console.log(gameState.score);
+        //console.log(gameState.score);
         scoreText.setText(`${gameState.score}`);
         }
     
     //ENEMIES  --------------------------------------------------------------------------------------------------------------
-//     const enemies = this.physics.add.group();
-//     function generateEnemy () {
-//     const xCoordinate = Math.random() * 1700;
-//     enemies.create(xCoordinate, 10, 20, 20, 'enemy');  
-//     }
+    
+    //> Falling Enemies! BAD CANDY
+    const badCandy = this.physics.add.group();
+    function generateBadCandy () {
+    const xCoordinate = Math.random() * 1700;
+    badCandy.create(xCoordinate, 10, 20, 20, 'enemy');  
+    }
 
-//     //enemy loop
-//    let enemyGenLoop = this.time.addEvent({
-//     delay: 250,
-//     callback: generateEnemy,
-//     callbackScope: this,
-//     loop: true 
-//    })
+        //>Bad Candy Loop
+        let badCandyLoop = this.time.addEvent({
+            delay: 100,
+            callback: generateBadCandy,
+            callbackScope: this,
+            loop: true 
+        })
 
-//    //Update score
-//     this.physics.add.collider(enemies, platforms, function (enemy){
-//         enemy.destroy();
-//         //gameState.score += 5;
-//       })
-      
-//       //Losing condition
-//     this.physics.add.collider(this.player, enemies, () => {
-//         // Logic to end the game
-//         enemyGenLoop.destroy();
-//         //gameState.score = 0;
-//         gameState.hearts -= 1;
-//         this.scene.restart();
-
-//         //Re-starting the game
-//         this.input.on('pointerup', () => {
-//             //gameState.score = 0;
-//             this.scene.restart()
-//           })
-//     });
+        //> Update life state - NO FUNCIONA ;_;
+    //     this.physics.add.overlap(this.player, badCandy, function (candy){
+    //     candy.destroy();
+    //     //gameState.hearts -= 1;
+    //   })
 
     //level clear
     this.physics.add.overlap(this.player, endLevel, function() {
@@ -159,7 +155,7 @@ update () {
     
     //> falling from the platforms -------------------------------------------------------------------------------------------------------------------
 
-    if (this.player.y > 325){
+    if (this.player.y > 860){
         this.cameras.main.shake(240, .01, false, function(camera, progress) {
         if(progress > .9) {
         this.scene.restart(this.GameScene)
@@ -171,6 +167,7 @@ update () {
     //> game over ------------------------------------------------------------------------------------------------------------------------------------
     if(gameState.hearts === 0) {
         this.scene.stop('GameScene');
+        gameState.theme.stop();
         gameState.hearts = 3;
         this.scene.start('EndingScene'); 
     }
