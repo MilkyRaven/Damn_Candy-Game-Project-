@@ -8,7 +8,8 @@ preload () {
     this.load.image('magicalGirl', 'img/magical girl.png');
 	this.load.image('plataforma', 'img/plataforma.png');
     this.load.image('enemy', 'img/enemy.png');
-    this.load.image('hub', 'img/hub.png')
+    this.load.image('hub', 'img/hub.png');
+    this.load.image('portal', 'img/portal.png');
 }
 
 create () {
@@ -16,7 +17,7 @@ create () {
     //Game state
     //gameState.active = true
     //End Level
-    let endLevel = this.physics.add.sprite(1960, 60, 'magicalGirl').setScale(0.3);
+    let endLevel = this.physics.add.sprite(1985, 60, 'portal').setScale(0.2);
     endLevel.setCollideWorldBounds(true);
 
     //Player
