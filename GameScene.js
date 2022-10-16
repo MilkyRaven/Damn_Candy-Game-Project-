@@ -39,6 +39,12 @@ create () {
     // //Score
     gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'})
 
+     // so the player doesn't fall from the platform
+     this.player.setCollideWorldBounds(true);
+
+     //Collisions
+    this.physics.add.collider(this.player, platforms);
+
     //Enemies
     const enemies = this.physics.add.group();
     function generateEnemy () {
@@ -53,13 +59,7 @@ create () {
     callbackScope: this,
     loop: true 
    })
-
-    // so it doesn't fall from the platform
-    this.player.setCollideWorldBounds(true);
 	
-    //Collisions
-    this.physics.add.collider(this.player, platforms);
-    
     //Update score
     this.physics.add.collider(enemies, platforms, function (enemy){
         enemy.destroy();
@@ -101,6 +101,7 @@ update () {
     if (this.player.y > 325){this.cameras.main.shake(240, .01, false, function(camera, progress) {
         if(progress > .9) {
           this.scene.restart(this.GameScene)}
+          gameState.score = 0;
       });
     }
 }
