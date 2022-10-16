@@ -24,7 +24,7 @@ preload () {
     //gameState.active = true  (I may need this later)
     
     //PORTAL ---------------------------------------------------------------------------------------------------------
-        let endLevel = this.physics.add.sprite(1985, 60, 'portal').setScale(0.2);
+        let endLevel = this.physics.add.sprite(1200, 200, 'portal').setScale(0.2);
         endLevel.setCollideWorldBounds(true);
 
     //PLAYER ----------------------------------------------------------------------------------------------------------
@@ -38,8 +38,19 @@ preload () {
             //> Danger Zone Warning > If player life is equal to 1, red tint
             if(gameState.hearts === 1){
             player.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
-            }
-    
+            }         
+
+    //PLATFORMS ---------------------------------------------------------------------------------------------------------
+    const platforms = this.physics.add.staticGroup();
+	//> FLOOR PLATFORMS
+    platforms.create(0, 820, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    //350 to 350 for a linear platform
+    platforms.create(500, 750, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(1000, 700, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(1500, 600, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(1700, 500, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(1200, 400, 'plataforma').setScale(0.5, 0.2).refreshBody();
+
     //HUD CONTAINER ----------------------------------------------------------------------------------------------------
     let scoreText = this.add.text(68, 32, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
     let heartText = this.add.text(165, 27, `${gameState.hearts}`, {fill: '#FFFFFF', fontSize: '20px'}, )
@@ -52,34 +63,12 @@ preload () {
          y: 0
      });
      contenedor.setScrollFactor(0);
-         
-
-    //PLATFORMS ---------------------------------------------------------------------------------------------------------
-    const platforms = this.physics.add.staticGroup();
-	//> FLOOR PLATFORMS
-    platforms.create(0, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    //350 to 350 for a linear platform
-    platforms.create(350, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(700, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1000, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1500, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1700, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(2000, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
-
-    //HIGH PLATFORMS
-    platforms.create(350, 200, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(700, 100, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(1000, 300, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(1500, 300, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(1700, 200, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(2000, 100, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    
 
      //CANDY STARDUST! 
     let stars = this.physics.add.group({
         key: 'star',
-        repeat: 70,
-        setXY: { x: 120, y: 0, stepX: 70 }
+        repeat: 150,
+        setXY: { x: 0, y: 0, stepX: 35 }
     });
     
     stars.children.iterate(function (child) {
@@ -114,7 +103,7 @@ preload () {
 
         //>Bad Candy Loop
         let badCandyLoop = this.time.addEvent({
-            delay: 100,
+            delay: 200,
             callback: generateBadCandy,
             callbackScope: this,
             loop: true 
