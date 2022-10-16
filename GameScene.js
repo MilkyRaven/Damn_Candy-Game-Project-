@@ -98,7 +98,11 @@ preload () {
     this.physics.add.collider(this.player, platforms); // collision between player and platforms
     this.physics.add.collider(endLevel, platforms); //collision between portal and platforms
     this.physics.add.collider(stars, platforms);
-    //this.physics.add.overlap(player, stars, collectStar, null, this);
+    this.physics.add.overlap(player, stars, collectStar, null, this);
+    function collectStar (player, star)
+{
+    star.disableBody(true, true);
+}
     
     //ENEMIES  --------------------------------------------------------------------------------------------------------------
 //     const enemies = this.physics.add.group();
