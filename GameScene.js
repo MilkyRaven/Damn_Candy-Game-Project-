@@ -79,14 +79,16 @@ create () {
         gameState.score += 5;
         //gameState.scoreText.setText(`Score: ${gameState.score}`)
       })
-
+      
       //Losing condition
     this.physics.add.collider(this.player, enemies, () => {
         // Logic to end the game
         enemyGenLoop.destroy();
-        this.physics.pause();
-        this.add.text(this.player.x -50, this.player.y - 200, 'GAME OVER', {fontSize: '30px', fill:'#FFA8CF'})
-        this.add.text(this.player. x - 50, this.player.y - 100, 'Click to Restart', {fontSize: '25px', fill:'#FFA8CF'})
+        gameState.score = 0;
+        gameState.hearts -= 1;
+        this.scene.restart();
+        // this.add.text(this.player.x -50, this.player.y - 200, 'GAME OVER', {fontSize: '30px', fill:'#FFA8CF'})
+        // this.add.text(this.player. x - 50, this.player.y - 100, 'Click to Restart', {fontSize: '25px', fill:'#FFA8CF'})
         
         //Re-starting the game
         this.input.on('pointerup', () => {
@@ -110,10 +112,11 @@ update () {
 	else {
 		this.player.setVelocityX(0);
 	}
-    if (this.player.y > 325){this.cameras.main.shake(240, .01, false, function(camera, progress) {
-        if(progress > .9) {
+    if (this.player.y > 325 || gameState.hearts === 0){this.cameras.main.shake(240, .01, false, function(camera, progress) {
+        if(progress > .9 || gameState.hearts === 0) {
           this.scene.restart(this.GameScene)}
           gameState.score = 0;
+          gameState.hearts = 3;
       });
     }
 }
