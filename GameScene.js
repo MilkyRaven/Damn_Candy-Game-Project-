@@ -12,6 +12,12 @@ preload () {
 }
 
 create () {
+    
+    //Game state
+    //gameState.active = true
+    //End Level
+    let endLevel = this.physics.add.sprite(1960, 60, 'magicalGirl').setScale(0.3);
+    endLevel.setCollideWorldBounds(true);
 
     //Player
 	let player = this.player = this.physics.add.sprite(5, 40, 'magicalGirl').setScale(0.3);
@@ -61,6 +67,7 @@ create () {
 
      //Collisions
     this.physics.add.collider(this.player, platforms);
+    this.physics.add.collider(endLevel, platforms);
 
     //Enemies
     const enemies = this.physics.add.group();
@@ -98,6 +105,16 @@ create () {
             this.scene.restart()
           })
     });
+
+    //level clear
+    this.physics.add.overlap(this.player, endLevel, function() {
+        this.cameras.main.fade(800, 0, 0, 0, false, function(camera, progress) {
+          if (progress > .9) {
+            this.scene.stop('GameScene');
+            this.scene.start('LevelClear');
+          }
+        });
+      }, null, this);
 }
 
 update () {
@@ -117,12 +134,12 @@ update () {
     
     //restarting the game
     
-    if (this.player.y > 325){this.cameras.main.shake(240, .01, false, function(camera, progress) {
+    if (this.player.y > 325){
+        this.cameras.main.shake(240, .01, false, function(camera, progress) {
         if(progress > .9) {
         this.scene.restart(this.GameScene)
+        gameState.hearts -=1;
         }
-        //gameState.score = 0;
-        gameState.hearts = 3;
       });
     }
     
