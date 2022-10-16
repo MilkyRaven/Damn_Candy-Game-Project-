@@ -1,4 +1,4 @@
-// creating GameScene class
+// creating the GameScene class
 class GameScene extends Phaser.Scene {
     constructor(){
       super({key: 'GameScene'})
@@ -8,14 +8,18 @@ preload () {
     this.load.image('magicalGirl', 'img/magical girl.png');
 	this.load.image('plataforma', 'img/plataforma.png');
     this.load.image('enemy', 'img/enemy.png');
-   
 }
 
 create () {
 
-    // //Score
-    gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'})
+    //Player
+	this.player = this.physics.add.sprite(5, 40, 'magicalGirl').setScale(0.3);
+    this.player.setBounce(0.2);
+    this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
+    this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
+    this.cameras.main.startFollow(this.player);
     
+
     //Demo Platfoms
     const platforms = this.physics.add.staticGroup();
 	platforms.create(10, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
@@ -32,6 +36,9 @@ create () {
     platforms.create(1700, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(2000, 400, 'plataforma').setScale(0.5, 0.5).refreshBody();
     
+    // //Score
+    gameState.scoreText = this.add.text(16, 16, 'Score: 0', {fontSize: '20px', fill:'#FFA8CF'})
+
     //Enemies
     const enemies = this.physics.add.group();
     function generateEnemy () {
@@ -46,13 +53,6 @@ create () {
     callbackScope: this,
     loop: true 
    })
-
-   //Player
-	this.player = this.physics.add.sprite(5, 40, 'magicalGirl').setScale(0.3);
-    this.player.setBounce(0.2);
-    this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
-    this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
-    this.cameras.main.startFollow(this.player);
 
     // so it doesn't fall from the platform
     this.player.setCollideWorldBounds(true);
@@ -82,7 +82,7 @@ create () {
             this.scene.restart()
           })
     });
-}
+    }
 
 update () {
     //update gamer input

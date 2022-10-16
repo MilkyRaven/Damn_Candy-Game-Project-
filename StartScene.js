@@ -15,8 +15,8 @@ class StartScene extends Phaser.Scene {
         gameState.pixel.play()
         this.add.image(400, 250, 'start');
         this.input.on('pointerup', () => {
-            this.scene.stop('StartScene');
             gameState.pixel.stop();
+            this.scene.stop('StartScene');
             this.scene.start('GameScene');
         });
     }
