@@ -98,11 +98,14 @@ preload () {
     this.physics.add.collider(this.player, platforms); // collision between player and platforms
     this.physics.add.collider(endLevel, platforms); //collision between portal and platforms
     this.physics.add.collider(stars, platforms);
-    this.physics.add.overlap(player, stars, collectStar, null, this);
-    function collectStar (player, star)
-{
-    star.disableBody(true, true);
-}
+    this.physics.add.overlap(player, stars, collectStar, null, this); //star candy collision
+    //> star collecting
+        function collectStar (player, star) {
+        star.disableBody(true, true);
+        gameState.score += 10;
+        console.log(gameState.score);
+        scoreText.setText(`${gameState.score}`);
+        }
     
     //ENEMIES  --------------------------------------------------------------------------------------------------------------
 //     const enemies = this.physics.add.group();
