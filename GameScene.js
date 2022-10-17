@@ -120,25 +120,22 @@ preload () {
 
     function hitByBadCandy(player, candy) {
         if (candy.body.touching) {
-            player.disableBody(false, false);
+            candy.disableBody(true, true)
             let tween = this.tweens.add({
                 targets: player,
-                alpha: 0.5,
-                scaleX: 0.5,
-                scaleY: 0.5,
-                angle: 180,
-                x: player.x - 100,
-                y: player.y - 50,
-                ease: 'Linear',
-                duration: 400,
+                angle: 360,
+                x: player.x - 50,
+                y: player.y - 20,
+                ease: 'Quadratic',
+                duration: 600,
                 onComplete: function() {
-                    gameState.hearts -=1;
-                    this.scene.restart(this.GameScene)
+                gameState.hearts -=1;
+                heartText.setText(`${gameState.hearts}`);
+                console.log(gameState.hearts);
                  },
                  onCompleteScope: this
             });
-
-        }
+        } 
     }
 
     //level clear
