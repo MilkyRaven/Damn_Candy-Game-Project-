@@ -7,8 +7,8 @@ class LevelClear extends Phaser.Scene {
         this.load.image('clear', 'img/levelclear.png')
     }
     create(){
-        this.add.image(300, 250, 'clear').setScale(0.7);
-        this.add.text(400, 290, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '40px'})
+        this.add.image(600, 430, 'clear').setScale(1.25);
+        this.add.text(800, 520, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '40px'})
 
             this.input.on('pointerup', () => {
             this.scene.stop('LevelClear');

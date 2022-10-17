@@ -18,7 +18,7 @@ const config = {
 			debug: false,
 		}
 	},
-  scene: [StartScene, GameScene, EndingScene, LevelClear]
+  scene: [EndingScene, StartScene, GameScene, LevelClear]
 }
 
 const game = new Phaser.Game(config)

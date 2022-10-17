@@ -37,11 +37,6 @@ preload () {
             this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
             this.cameras.main.startFollow(this.player);
 
-        //TEST
-        player.body.maxVelocity.x = 600;
-        player.body.maxVelocity.y = 600;
-        //TEST END
-
             //> Danger Zone Warning > If player life is equal to 1, red tint
             if(gameState.hearts === 1){
             player.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
@@ -160,9 +155,8 @@ preload () {
     function clearCandy(magic, candy) {
         if (candy.body.touching) {
             candy.disableBody(true, true);
-            gameState.score +=20;
-                scoreText.setText(`${gameState.score}`);
-                console.log(gameState.score);
+            //gameState.score +=20;
+            //scoreText.setText(`${gameState.score}`);
             // this.tweens.add({
             //     targets: candy,
             //     angle: 360,
