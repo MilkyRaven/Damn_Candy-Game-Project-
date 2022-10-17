@@ -104,7 +104,7 @@ preload () {
     const badCandy = this.physics.add.group();
     function generateBadCandy () {
     const xCoordinate = Math.random() * 1700;
-    badCandy.create(xCoordinate, 10, 20, 20, 'enemy');  
+    badCandy.create(xCoordinate, 20, 20, 20, 'enemy');  
     }
 
         //>Bad Candy Loop
@@ -114,12 +114,33 @@ preload () {
             callbackScope: this,
             loop: true 
         })
+    
+    //Candie Collisions
 
-        //> Update life state - NO FUNCIONA ;_;
-    //     this.physics.add.overlap(this.player, badCandy, function (candy){
-    //     candy.destroy();
-    //     //gameState.hearts -= 1;
-    //   })
+    this.physics.add.overlap (this.player, badCandy, hitBadCandy, null, this);
+
+    function hitBadCandy(player, candy) {
+        if (candy.body.touching) {
+            player.disableBody(false, false);
+            let tween = this.tweens.add({
+                targets: player,
+                alpha: 0.3,
+                scaleX: 0.6,
+                scaleY: 0.6,
+                angle: 180,
+                x: player.x - 20,
+                y: player.y - 20,
+                ease: 'Linear',
+                duration: 200,
+                onComplete: function() {
+                    gameState.hearts -=1;
+                    this.scene.restart(this.GameScene)
+                 },
+                 onCompleteScope: this
+            });
+
+        }
+    }
 
     //level clear
     this.physics.add.overlap(this.player, endLevel, function() {

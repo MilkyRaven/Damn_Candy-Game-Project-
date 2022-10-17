@@ -11,6 +11,7 @@ class EndingScene extends Phaser.Scene {
 
             this.input.on('pointerup', () => {
             this.scene.stop('EndingScene');
+            gameState.score = 0;
             this.scene.start('StartScene');  
         });
     }
