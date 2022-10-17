@@ -138,6 +138,27 @@ preload () {
         } 
     }
 
+    // Test
+    this.physics.add.overlap (this.magic, badCandy, clearCandy, null, this);
+
+    function clearCandy(magic, candy) {
+        if (candy.body.touching) {
+            candy.disableBody(true, true);
+            gameState.score +=50;
+                scoreText.setText(`${gameState.score}`);
+                console.log(gameState.score);
+            // let hitTween = this.tweens.add({
+            //     targets: candy,
+            //     angle: 360,
+            //     x: player.x - 50,
+            //     y: player.y - 20,
+            //     ease: 'Quadratic',
+            //     duration: 600,
+            // });
+        } 
+    }
+    // Test End
+
     //level clear
     this.physics.add.overlap(this.player, endLevel, function() {
         this.cameras.main.fade(800, 0, 0, 0, false, function(camera, progress) {
