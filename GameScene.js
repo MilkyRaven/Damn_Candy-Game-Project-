@@ -94,8 +94,9 @@ preload () {
         }
     
     
-    //ATTACK TEST
+    //ATTACK
     this.magic = this.physics.add.group();
+
     
     //ENEMIES  --------------------------------------------------------------------------------------------------------------
     
@@ -146,14 +147,16 @@ update () {
     //Attack
     
     } else if (cursors.space.isDown) {
-        this.magic.create(this.player.x, this.player.y -40, 'magic').setGravityY(-1000).setScale(0.05);
+        this.magic.create(this.player.x, this.player.y -40, 'magic').setGravityY(-3000).setScale(0.05);
      } 
      
-    //     else if (cursors.down.isDown) {
-    //     this.magic.create(this.player.x, this.player.y, 'magic').setScale(0.2);
-    //  }
+    //Protect
+
+        else if (cursors.down.isDown) {
+        //this.shield = this.physics.add.sprite(this.player.x, this.player.y, 'magic').setScale(0.2);
+      }
      
-     //End Attack Test
+    //Idle
 
 	else {
 		this.player.setVelocityX(0);
