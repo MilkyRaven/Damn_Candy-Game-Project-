@@ -109,29 +109,30 @@ preload () {
 
         //>Bad Candy Loop
         let badCandyLoop = this.time.addEvent({
-            delay: 200,
+            delay: 450,
             callback: generateBadCandy,
             callbackScope: this,
             loop: true 
         })
     
     //Candie Collisions
+    
+    //> When hitted by the candy
+    this.physics.add.overlap (this.player, badCandy, hitByBadCandy, null, this);
 
-    this.physics.add.overlap (this.player, badCandy, hitBadCandy, null, this);
-
-    function hitBadCandy(player, candy) {
+    function hitByBadCandy(player, candy) {
         if (candy.body.touching) {
             player.disableBody(false, false);
             let tween = this.tweens.add({
                 targets: player,
-                alpha: 0.3,
-                scaleX: 0.6,
-                scaleY: 0.6,
+                alpha: 0.5,
+                scaleX: 0.5,
+                scaleY: 0.5,
                 angle: 180,
-                x: player.x - 20,
-                y: player.y - 20,
+                x: player.x - 100,
+                y: player.y - 50,
                 ease: 'Linear',
-                duration: 200,
+                duration: 400,
                 onComplete: function() {
                     gameState.hearts -=1;
                     this.scene.restart(this.GameScene)
