@@ -14,6 +14,7 @@ preload () {
     this.load.image('hud', 'img/hub.png');
     this.load.image('portal', 'img/portal.png');
     this.load.image('star', 'img/star.png')
+    this.load.image('magic', 'img/magic.png')
     this.load.audio('theme', 'sounds/gameTheme.wav');
 }
 
@@ -68,7 +69,7 @@ preload () {
     let stars = this.physics.add.group({
         key: 'star',
         repeat: 150,
-        setXY: { x: 0, y: 0, stepX: 35 }
+        setXY: { x: 120, y: 0, stepX: 35 }
     });
     
     stars.children.iterate(function (child) {
@@ -91,6 +92,10 @@ preload () {
         //console.log(gameState.score);
         scoreText.setText(`${gameState.score}`);
         }
+    
+    
+    //ATTACK TEST
+    this.magic = this.physics.add.group();
     
     //ENEMIES  --------------------------------------------------------------------------------------------------------------
     
@@ -135,9 +140,21 @@ update () {
 		this.player.setVelocityX(-300)
 	} else if (cursors.right.isDown) {
 		this.player.setVelocityX(300)}
-	 else if (cursors.space.isDown && this.player.body.touching.down) {
+	 else if (cursors.up.isDown && this.player.body.touching.down) {
 		this.player.setVelocityY(-400)
-	 }
+	 
+    //Attack
+    
+    } else if (cursors.space.isDown) {
+        this.magic.create(this.player.x, this.player.y -40, 'magic').setGravityY(-1000).setScale(0.05);
+     } 
+     
+    //     else if (cursors.down.isDown) {
+    //     this.magic.create(this.player.x, this.player.y, 'magic').setScale(0.2);
+    //  }
+     
+     //End Attack Test
+
 	else {
 		this.player.setVelocityX(0);
 	}
