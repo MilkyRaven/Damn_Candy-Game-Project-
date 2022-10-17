@@ -11,6 +11,7 @@ preload () {
     this.load.image('magicalGirl', 'img/magical girl.png');
 	this.load.image('plataforma', 'img/plataforma.png');
     this.load.image('enemy', 'img/enemy.png');
+    this.load.image('boss', 'img/boss.png');
     this.load.image('hud', 'img/hub.png');
     this.load.image('portal', 'img/portal.png');
     this.load.image('star', 'img/star.png')
@@ -23,18 +24,23 @@ preload () {
     create () {
     
     //gameState.active = true  (I may need this later)
-    
+
     //PORTAL ---------------------------------------------------------------------------------------------------------
-        let endLevel = this.physics.add.sprite(1200, 200, 'portal').setScale(0.2);
+        let endLevel = this.physics.add.sprite(4950, 200, 'portal').setScale(0.2);
         endLevel.setCollideWorldBounds(true);
 
     //PLAYER ----------------------------------------------------------------------------------------------------------
-	    let player = this.player = this.physics.add.sprite(40, 1850, 'magicalGirl').setScale(0.3);
+	    let player = this.player = this.physics.add.sprite(40, 400, 'magicalGirl').setScale(0.5);
         player.setBounce(0.3); //little bounce as you fall
             //> let the camera follow the player
             this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
             this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
             this.cameras.main.startFollow(this.player);
+
+        //TEST
+        player.body.maxVelocity.x = 600;
+        player.body.maxVelocity.y = 600;
+        //TEST END
 
             //> Danger Zone Warning > If player life is equal to 1, red tint
             if(gameState.hearts === 1){
@@ -43,12 +49,22 @@ preload () {
 
     //PLATFORMS ---------------------------------------------------------------------------------------------------------
     const platforms = this.physics.add.staticGroup();
-    platforms.create(0, 2500, 'plataforma').setScale(0.3, 0.1).refreshBody();
-    platforms.create(250, 2400, 'plataforma').setScale(0.2, 0.1).refreshBody();
-    platforms.create(500, 2300, 'plataforma').setScale(0.3, 0.1).refreshBody();
-    //platforms.create(100, 1400, 'plataforma').setScale(0.3, 0.1).refreshBody();
-    //platforms.create(200, 1200, 'plataforma').setScale(0.3, 0.1).refreshBody();
-    //platforms.create(100, 1000, 'plataforma').setScale(0.3, 0.1).refreshBody();
+    platforms.create(0, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(300, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(600, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(800, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1000, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1200, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1500, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1700, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(2300, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(2700, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(3000, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(3500, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(4000, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(4500, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(4800, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+
 
     //HUD CONTAINER ----------------------------------------------------------------------------------------------------
     let scoreText = this.add.text(68, 32, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
@@ -101,13 +117,13 @@ preload () {
     //> Falling Enemies! BAD CANDY
     const badCandy = this.physics.add.group();
     function generateBadCandy () {
-    const xCoordinate = Math.random() * 1700;
-    badCandy.create(xCoordinate, 20, 'enemy').setScale(0.1);  
+    const xCoordinate = Math.random() * 5000;
+    badCandy.create(xCoordinate, 50, 'enemy').setScale(0.15);  
     }
 
         //>Bad Candy Loop
         let badCandyLoop = this.time.addEvent({
-            delay: 450,
+            delay: 100,
             callback: generateBadCandy,
             callbackScope: this,
             loop: true 
@@ -138,26 +154,25 @@ preload () {
         } 
     }
 
-    // Test
+    //>CLEAR CANDY ------------------------------------------------------------------------------------------------------
     this.physics.add.overlap (this.magic, badCandy, clearCandy, null, this);
 
     function clearCandy(magic, candy) {
         if (candy.body.touching) {
             candy.disableBody(true, true);
-            gameState.score +=50;
+            gameState.score +=20;
                 scoreText.setText(`${gameState.score}`);
                 console.log(gameState.score);
-            // let hitTween = this.tweens.add({
+            // this.tweens.add({
             //     targets: candy,
             //     angle: 360,
-            //     x: player.x - 50,
-            //     y: player.y - 20,
+            //     x: candy.x - 50,
+            //     y: candy.y - 20,
             //     ease: 'Quadratic',
             //     duration: 600,
-            // });
+            //  });
         } 
     }
-    // Test End
 
     //level clear
     this.physics.add.overlap(this.player, endLevel, function() {
@@ -168,6 +183,13 @@ preload () {
           }
         });
       }, null, this);
+
+
+    //   //BOSS test ----------------------------------------------------------------------------------------------------------
+	//     let boss = this.boss = this.physics.add.sprite(400, 40, 'boss').setScale(1);
+    //     player.setBounce(0.3); //little bounce as you fall
+    //     boss.setCollideWorldBounds(true);
+    //     //this.bossAttack.create(boss.x, boss.y, 'magic').setVelocityX(-300).setScale(0.05);
 }
 
 // UPDATE ---------------------------------------------------------------------------------------------------------------------------------
@@ -176,11 +198,11 @@ update () {
     const cursors = this.input.keyboard.createCursorKeys();
 
 	if(cursors.left.isDown){
-		this.player.setVelocityX(-300)
+		this.player.setVelocityX(-400)
 	} else if (cursors.right.isDown) {
-		this.player.setVelocityX(300)}
+		this.player.setVelocityX(400)}
 	 else if (cursors.up.isDown && this.player.body.touching.down) {
-		this.player.setVelocityY(-400)
+		this.player.setVelocityY(-500)
 	 
     //Attack
     
@@ -202,7 +224,7 @@ update () {
     
     //> falling from the platforms -------------------------------------------------------------------------------------------------------------------
 
-    if (this.player.y > 2950){
+    if (this.player.y > 800){
         this.cameras.main.shake(240, .01, false, function(camera, progress) {
         if(progress > .9) {
         this.scene.restart(this.GameScene)
@@ -218,5 +240,6 @@ update () {
         gameState.hearts = 3;
         this.scene.start('EndingScene'); 
     }
+    
 }
 }
