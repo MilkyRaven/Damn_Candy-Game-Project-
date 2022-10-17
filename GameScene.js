@@ -29,8 +29,8 @@ preload () {
         endLevel.setCollideWorldBounds(true);
 
     //PLAYER ----------------------------------------------------------------------------------------------------------
-	    let player = this.player = this.physics.add.sprite(5, 40, 'magicalGirl').setScale(0.3);
-        player.setBounce(0.2); //little bounce as you fall
+	    let player = this.player = this.physics.add.sprite(40, 1850, 'magicalGirl').setScale(0.3);
+        player.setBounce(0.3); //little bounce as you fall
             //> let the camera follow the player
             this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
             this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
@@ -43,14 +43,12 @@ preload () {
 
     //PLATFORMS ---------------------------------------------------------------------------------------------------------
     const platforms = this.physics.add.staticGroup();
-	//> FLOOR PLATFORMS
-    platforms.create(0, 820, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    //350 to 350 for a linear platform
-    platforms.create(500, 750, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(1000, 700, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(1500, 600, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(1700, 500, 'plataforma').setScale(0.5, 0.2).refreshBody();
-    platforms.create(1200, 400, 'plataforma').setScale(0.5, 0.2).refreshBody();
+    platforms.create(0, 2500, 'plataforma').setScale(0.3, 0.1).refreshBody();
+    platforms.create(250, 2400, 'plataforma').setScale(0.2, 0.1).refreshBody();
+    platforms.create(500, 2300, 'plataforma').setScale(0.3, 0.1).refreshBody();
+    //platforms.create(100, 1400, 'plataforma').setScale(0.3, 0.1).refreshBody();
+    //platforms.create(200, 1200, 'plataforma').setScale(0.3, 0.1).refreshBody();
+    //platforms.create(100, 1000, 'plataforma').setScale(0.3, 0.1).refreshBody();
 
     //HUD CONTAINER ----------------------------------------------------------------------------------------------------
     let scoreText = this.add.text(68, 32, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
@@ -186,7 +184,7 @@ update () {
     
     //> falling from the platforms -------------------------------------------------------------------------------------------------------------------
 
-    if (this.player.y > 860){
+    if (this.player.y > 2950){
         this.cameras.main.shake(240, .01, false, function(camera, progress) {
         if(progress > .9) {
         this.scene.restart(this.GameScene)
