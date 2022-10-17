@@ -102,7 +102,7 @@ preload () {
     const badCandy = this.physics.add.group();
     function generateBadCandy () {
     const xCoordinate = Math.random() * 1700;
-    badCandy.create(xCoordinate, 20, 20, 20, 'enemy');  
+    badCandy.create(xCoordinate, 20, 'enemy').setScale(0.1);  
     }
 
         //>Bad Candy Loop
@@ -113,7 +113,7 @@ preload () {
             loop: true 
         })
     
-    //Candie Collisions
+    //Candy Collisions
     
     //> When hitted by the candy
     this.physics.add.overlap (this.player, badCandy, hitByBadCandy, null, this);
@@ -121,7 +121,7 @@ preload () {
     function hitByBadCandy(player, candy) {
         if (candy.body.touching) {
             candy.disableBody(true, true)
-            let tween = this.tweens.add({
+            let hitTween = this.tweens.add({
                 targets: player,
                 angle: 360,
                 x: player.x - 50,
