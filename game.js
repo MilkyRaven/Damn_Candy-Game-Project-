@@ -9,7 +9,7 @@ const config = {
   type: Phaser.AUTO,
   width: 1200,
 	height: 900,
-	//backgroundColor: "b9eaff",
+	backgroundColor: '#41A6E1',
 	physics: {
 		default: 'arcade',
 		arcade: {
@@ -18,7 +18,7 @@ const config = {
 			debug: false,
 		}
 	},
-  scene: [EndingScene, StartScene, GameScene, LevelClear]
+  scene: [StartScene, GameScene, LevelClear, EndingScene]
 }
 
 const game = new Phaser.Game(config)

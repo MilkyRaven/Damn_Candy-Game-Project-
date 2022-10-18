@@ -8,6 +8,10 @@ class GameScene extends Phaser.Scene {
 
     // LOADING THE MATERIAL WE NEED ---------------------------------------------------------------------------------
 preload () {	
+    //TEST
+    this.load.spritesheet('run', 'img/sprites/run.png', {frameWidth: 1000, frameHeight: 1000});
+    this.load.spritesheet('player', 'img/sprites/playerSprites.png', {frameWidth: 1000, frameHeight: 1000})
+    //END TEST
     this.load.image('magicalGirl', 'img/magical girl.png');
 	this.load.image('plataforma', 'img/plataforma.png');
     this.load.image('enemy', 'img/enemy.png');
@@ -30,7 +34,26 @@ preload () {
         endLevel.setCollideWorldBounds(true);
 
     //PLAYER ----------------------------------------------------------------------------------------------------------
-	    let player = this.player = this.physics.add.sprite(40, 400, 'magicalGirl').setScale(0.5);
+	    let player = this.player = this.physics.add.sprite(250, 250, 'run').setScale(0.1);
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNumbers('player', { start: 2, end: 11}),
+            frameRate: 20,
+            repeat: -1 // -1 to repeat
+          });
+          this.anims.create({
+            key: 'jump',
+            frames: [ { key: 'player', frame: 12 } ],
+            frameRate: 1,
+            repeat: -1 // -1 to repeat
+          });
+          this.anims.create({
+            key: 'idle',
+            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 1}),
+            frameRate: 4,
+            repeat: -1 // -1 to repeat
+          });
+        
         player.setBounce(0.3); //little bounce as you fall
             //> let the camera follow the player
             this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
@@ -192,11 +215,16 @@ update () {
     const cursors = this.input.keyboard.createCursorKeys();
 
 	if(cursors.left.isDown){
-		this.player.setVelocityX(-400)
+		this.player.setVelocityX(-500)
+        this.player.anims.play('run', true);
+        this.player.flipX = true;
 	} else if (cursors.right.isDown) {
-		this.player.setVelocityX(400)}
+		this.player.setVelocityX(500);
+        this.player.anims.play('run', true);
+        this.player.flipX = false;}
 	 else if (cursors.up.isDown && this.player.body.touching.down) {
-		this.player.setVelocityY(-500)
+		this.player.setVelocityY(-500);
+        this.player.anims.play('jump', true);
 	 
     //Attack
     
@@ -204,16 +232,11 @@ update () {
         this.magic.create(this.player.x, this.player.y -40, 'magic').setGravityY(-3000).setScale(0.05);
      } 
      
-    //Protect
-
-        else if (cursors.down.isDown) {
-        //this.shield = this.physics.add.sprite(this.player.x, this.player.y, 'magic').setScale(0.2);
-      }
-     
     //Idle
 
 	else {
 		this.player.setVelocityX(0);
+        this.player.anims.play('idle', true);
 	}
     
     //> falling from the platforms -------------------------------------------------------------------------------------------------------------------
