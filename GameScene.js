@@ -8,10 +8,9 @@ class GameScene extends Phaser.Scene {
 
     // LOADING THE MATERIAL WE NEED ---------------------------------------------------------------------------------
 preload () {	
-    //TEST
+    this.load.image('bg', 'img/bg.png');
     this.load.spritesheet('run', 'img/sprites/run.png', {frameWidth: 1000, frameHeight: 1000});
     this.load.spritesheet('player', 'img/sprites/playerSprites.png', {frameWidth: 1000, frameHeight: 1000})
-    //END TEST
     this.load.image('magicalGirl', 'img/magical girl.png');
 	this.load.image('plataforma', 'img/plataforma.png');
     this.load.image('enemy', 'img/enemy.png');
@@ -33,8 +32,18 @@ preload () {
         let endLevel = this.physics.add.sprite(4950, 200, 'portal').setScale(0.2);
         endLevel.setCollideWorldBounds(true);
 
+    //BACKGROUND -----------------------------------------------------------------------------------------------------
+       this.add.image(600, 400, 'bg');
+       this.add.image(1800, 400, 'bg');
+       this.add.image(3000, 400, 'bg');
+       this.add.image(4200, 400, 'bg');
+       this.add.image(5400, 400, 'bg');
+
+    //END TEST
     //PLAYER ----------------------------------------------------------------------------------------------------------
-	    let player = this.player = this.physics.add.sprite(250, 250, 'run').setScale(0.1);
+	    let player = this.player = this.physics.add.sprite(250, 250, 'player').setScale(0.11);
+        
+
         this.anims.create({
             key: 'run',
             frames: this.anims.generateFrameNumbers('player', { start: 2, end: 11}),
@@ -67,13 +76,13 @@ preload () {
 
     //PLATFORMS ---------------------------------------------------------------------------------------------------------
     const platforms = this.physics.add.staticGroup();
-    platforms.create(0, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(300, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(600, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(175, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    //platforms.create(300, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    //platforms.create(600, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(800, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1000, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    //platforms.create(1000, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(1200, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1500, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    //platforms.create(1500, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(1700, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(2300, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(2700, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
