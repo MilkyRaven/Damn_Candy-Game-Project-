@@ -5,7 +5,7 @@ class StartScene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.audio('theme', 'sounds/gameTheme.wav');
+        this.load.audio('theme', 'sounds/gameTheme.mp3');
         this.load.image('start', 'img/start-screen.png')
         this.load.audio('click','sounds/click.wav' );
     }

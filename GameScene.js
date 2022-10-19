@@ -19,7 +19,7 @@ preload () {
     this.load.image('portal', 'img/portal.png');
     this.load.image('star', 'img/star.png')
     this.load.image('magic', 'img/magic.png')
-    this.load.audio('theme', 'sounds/gameTheme.wav');
+    this.load.audio('theme', 'sounds/gameTheme.mp3');
     this.load.audio('collect','sounds/collect.wav' );
     this.load.audio('hit','sounds/playerHit.wav' );
     this.load.audio('pop','sounds/pop.wav' );
