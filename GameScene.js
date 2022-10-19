@@ -11,7 +11,6 @@ preload () {
     this.load.image('bg', 'img/bg.png');
     this.load.spritesheet('run', 'img/sprites/run.png', {frameWidth: 1000, frameHeight: 1000});
     this.load.spritesheet('player', 'img/sprites/playerSprites.png', {frameWidth: 1000, frameHeight: 1000})
-    this.load.image('magicalGirl', 'img/magical girl.png');
 	this.load.image('plataforma', 'img/plataforma.png');
     this.load.image('enemy', 'img/enemy.png');
     this.load.image('boss', 'img/boss.png');
