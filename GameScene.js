@@ -20,13 +20,20 @@ preload () {
     this.load.image('star', 'img/star.png')
     this.load.image('magic', 'img/magic.png')
     this.load.audio('theme', 'sounds/gameTheme.wav');
+    this.load.audio('collect','sounds/collect.wav' );
+    this.load.audio('hit','sounds/playerHit.wav' );
+    this.load.audio('pop','sounds/pop.wav' );
+    this.load.audio('attack','sounds/magic.wav' );
 }
 
     // "DRAWING" THE SCENE -------------------------------------------------------------------------------------------
 
     create () {
     
-    //gameState.active = true  (I may need this later)
+    //SOUND EFFECTS ------
+    let collect = this.sound.add('collect');
+    let hit = this.sound.add('hit');
+    let pop = this.sound.add('pop');
 
     //BACKGROUND -----------------------------------------------------------------------------------------------------
        this.add.image(600, 400, 'bg');
@@ -67,11 +74,7 @@ preload () {
             this.cameras.main.setBounds(0, 0, gameState.width, gameState.height);
             this.physics.world.setBounds(0, 0, gameState.width, gameState.height);
             this.cameras.main.startFollow(this.player);
-
-            //> Danger Zone Warning > If player life is equal to 1, red tint
-            if(gameState.hearts === 1){
-            player.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
-            }         
+    
 
     //PLATFORMS ---------------------------------------------------------------------------------------------------------
     const platforms = this.physics.add.staticGroup();
@@ -121,6 +124,7 @@ preload () {
     //> star collecting
         function collectStar (player, star) {
         star.disableBody(true, true);
+        collect.play();
         gameState.score += 10;
         //console.log(gameState.score);
         scoreText.setText(`${gameState.score}`);
@@ -156,6 +160,7 @@ preload () {
     function hitByBadCandy(player, candy) {
         if (candy.body.touching) {
             candy.disableBody(true, true)
+            hit.play();
             let hitTween = this.tweens.add({
                 targets: player,
                 angle: 360,
@@ -179,6 +184,7 @@ preload () {
     function clearCandy(magic, candy) {
         if (candy.body.touching) {
             candy.disableBody(true, true);
+            pop.play();
             //gameState.score +=20;
             //scoreText.setText(`${gameState.score}`);
             // this.tweens.add({
@@ -196,6 +202,7 @@ preload () {
     this.physics.add.overlap(this.player, endLevel, function() {
         this.cameras.main.fade(800, 0, 0, 0, false, function(camera, progress) {
           if (progress > .9) {
+            gameState.theme.stop();
             this.scene.stop('GameScene');
             this.scene.start('LevelClear');
           }
@@ -222,7 +229,8 @@ update () {
 	} else if (cursors.right.isDown) {
 		this.player.setVelocityX(500);
         this.player.anims.play('run', true);
-        this.player.flipX = false;}
+        this.player.flipX = false;
+        }
 	 else if (cursors.up.isDown && this.player.body.touching.down) {
 		this.player.setVelocityY(-500);
         this.player.anims.play('jump', true);
@@ -231,7 +239,9 @@ update () {
     
     } else if (cursors.space.isDown) {
         this.magic.create(this.player.x, this.player.y -40, 'magic').setGravityY(-3000).setScale(0.05);
-     } 
+        let attack = this.sound.add('attack');
+        attack.play(); 
+    } 
      
     //Idle
 
@@ -245,6 +255,8 @@ update () {
     if (this.player.y > 800){
         this.cameras.main.shake(240, .01, false, function(camera, progress) {
         if(progress > .9) {
+        let hit = this.sound.add('hit');
+        hit.play();
         this.scene.restart(this.GameScene)
         gameState.hearts -=1;
         }
