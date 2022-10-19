@@ -28,10 +28,6 @@ preload () {
     
     //gameState.active = true  (I may need this later)
 
-    //PORTAL ---------------------------------------------------------------------------------------------------------
-        let endLevel = this.physics.add.sprite(4950, 200, 'portal').setScale(0.2);
-        endLevel.setCollideWorldBounds(true);
-
     //BACKGROUND -----------------------------------------------------------------------------------------------------
        this.add.image(600, 400, 'bg');
        this.add.image(1800, 400, 'bg');
@@ -39,7 +35,10 @@ preload () {
        this.add.image(4200, 400, 'bg');
        this.add.image(5400, 400, 'bg');
 
-    //END TEST
+   //PORTAL ---------------------------------------------------------------------------------------------------------
+   let endLevel = this.physics.add.sprite(4950, 200, 'portal').setScale(1.5);
+   endLevel.setCollideWorldBounds(true);
+
     //PLAYER ----------------------------------------------------------------------------------------------------------
 	    let player = this.player = this.physics.add.sprite(250, 250, 'player').setScale(0.11);
         
@@ -77,31 +76,24 @@ preload () {
     //PLATFORMS ---------------------------------------------------------------------------------------------------------
     const platforms = this.physics.add.staticGroup();
     platforms.create(175, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    //platforms.create(300, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    //platforms.create(600, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(800, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    //platforms.create(1000, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1200, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    //platforms.create(1500, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(1700, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(2300, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(2700, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(3000, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(3500, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(4000, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
-    platforms.create(4500, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(1500, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(2200, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(2800, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(3500, 650, 'plataforma').setScale(0.5, 0.5).refreshBody();
+    platforms.create(4200, 700, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(4800, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
 
 
     //HUD CONTAINER ----------------------------------------------------------------------------------------------------
-    let scoreText = this.add.text(68, 32, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '20px'})
-    let heartText = this.add.text(165, 27, `${gameState.hearts}`, {fill: '#FFFFFF', fontSize: '20px'}, )
-    let hud = this.add.image(100, 35, 'hud').setScale(1);
-    let contenedor = this.add.container(10, 10);
+    let scoreText = this.add.text(160, 60, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '30px'})
+    let heartText = this.add.text(310, 60, `${gameState.hearts}`, {fill: '#FFFFFF', fontSize: '30px'}, )
+    let hud = this.add.image(190, 70, 'hud').setScale(0.9);
+    let contenedor = this.add.container(50, 250);
      contenedor.add([hud, scoreText, heartText]);
      this.tweens.add({
          targets: contenedor,
-         duration: 800,
+         duration: 500,
          y: 0
      });
      contenedor.setScrollFactor(0);
