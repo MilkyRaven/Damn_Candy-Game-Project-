@@ -14,7 +14,7 @@ class madeBy extends Phaser.Scene {
         // gameState.theme = this.sound.add('theme');
         // gameState.theme.loop = true;
         // gameState.theme.play()
-        this.madeBy = this.add.image(600, 350, 'made').setScale(1.05);
+        this.madeBy = this.add.image(600, 450, 'made').setScale(1.05);
     
         this.input.on('pointerup', () => {
             this.scene.stop('madeBy');
