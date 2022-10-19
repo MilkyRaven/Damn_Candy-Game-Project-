@@ -15,7 +15,7 @@ class StartScene extends Phaser.Scene {
         gameState.theme.loop = true;
         gameState.theme.play()
         this.startScreen = this.add.image(600, 350, 'start').setScale(1.05);
-        //this.startScreen.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
+    
         this.input.on('pointerup', () => {
             this.scene.stop('StartScene');
             let click = this.sound.add('click');

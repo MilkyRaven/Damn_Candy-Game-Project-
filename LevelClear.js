@@ -13,6 +13,14 @@ class LevelClear extends Phaser.Scene {
         win.play()
         this.add.image(600, 430, 'clear').setScale(1.25);
         this.add.text(880, 520, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '40px'})
+        let creditsText = this.add.text(200, 200, 'Thanks for playing! ૮ • ﻌ - ა˚ʚ♡ɞ˚ Main theme: "AdhesiveWombat" by Night Shade || Sound Effects: 8 bit + 16 bit - by ivy ˚ʚ♡ɞ˚', {fill: '#FFFFFF', fontSize: '45px'})
+        let creditsCont = this.add.container(400, 480);
+        creditsCont.add([creditsText]);
+        this.tweens.add({
+         targets: creditsCont,
+         duration: 17000,
+         x: -3800
+     });
 
             this.input.on('pointerup', () => {
             this.scene.stop('LevelClear');
