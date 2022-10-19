@@ -9,7 +9,7 @@ class EndingScene extends Phaser.Scene {
         this.load.audio('click','sounds/click.wav' );
     }
     create(){
-        this.add.image(620, 450, 'end').setScale(1.2);
+        this.add.image(620, 380, 'end').setScale(1.2);
         let over = this.sound.add('over');
         over.play();
 
