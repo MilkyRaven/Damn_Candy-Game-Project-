@@ -1,5 +1,11 @@
+/*  /)  /)  ~ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+   ( •-• )  ~ ♡  Damn Candy ♡ by Milki Kiwi
+    /づづ ~  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    */
+
+
 // HERE IS WHERE THE MAIN GAME GOES (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
-// let's create a GameScene class
+
+// let's create a GameScene class that holds the first level logic
 class GameScene extends Phaser.Scene {
     constructor(){
       super({key: 'GameScene'})
@@ -29,7 +35,7 @@ preload () {
 
     create () {
     
-    //SOUND EFFECTS ------
+    //SOUND EFFECTS -------------------------------------------------------------------------------------------------
     let collect = this.sound.add('collect');
     let hit = this.sound.add('hit');
     let pop = this.sound.add('pop');
@@ -48,7 +54,7 @@ preload () {
     //PLAYER ----------------------------------------------------------------------------------------------------------
 	    let player = this.player = this.physics.add.sprite(250, 250, 'player').setScale(0.11);
         
-
+        //> player sprites
         this.anims.create({
             key: 'run',
             frames: this.anims.generateFrameNumbers('player', { start: 2, end: 11}),
@@ -75,7 +81,7 @@ preload () {
             this.cameras.main.startFollow(this.player);
     
 
-    //PLATFORMS ---------------------------------------------------------------------------------------------------------
+    //PLATFORMS ----------------------------------------------------------------------------------------------------------------
     const platforms = this.physics.add.staticGroup();
     platforms.create(175, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
     platforms.create(800, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
@@ -87,7 +93,7 @@ preload () {
     platforms.create(4800, 800, 'plataforma').setScale(0.5, 0.5).refreshBody();
 
 
-    //HUD CONTAINER ----------------------------------------------------------------------------------------------------
+    //HUD CONTAINER ------------------------------------------------------------------------------------------------------------
     let scoreText = this.add.text(160, 60, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '30px'})
     let heartText = this.add.text(310, 60, `${gameState.hearts}`, {fill: '#FFFFFF', fontSize: '30px'}, )
     let hud = this.add.image(190, 70, 'hud').setScale(0.9);
@@ -120,7 +126,8 @@ preload () {
     this.physics.add.collider(endLevel, platforms); //collision between portal and platforms
     this.physics.add.collider(stars, platforms);
     this.physics.add.overlap(player, stars, collectStar, null, this); //star candy collision
-    //> star collecting
+    
+    //> STAR COLLECTING ----------------------------------------------------------------------------------------------------------
         function collectStar (player, star) {
         star.disableBody(true, true);
         collect.play();
@@ -130,11 +137,11 @@ preload () {
         }
     
     
-    //ATTACK
+    //ATTACK -----------------------------------------------------------------------------------------------------------------------
     this.magic = this.physics.add.group();
 
     
-    //ENEMIES  --------------------------------------------------------------------------------------------------------------
+    //ENEMIES  ----------------------------------------------------------------------------------------------------------------------
     
     //> Falling Enemies! BAD CANDY
     const badCandy = this.physics.add.group();
@@ -143,61 +150,51 @@ preload () {
     badCandy.create(xCoordinate, 50, 'enemy').setScale(0.15);  
     }
 
-        //>Bad Candy Loop
-        let badCandyLoop = this.time.addEvent({
-            delay: 100,
-            callback: generateBadCandy,
-            callbackScope: this,
-            loop: true 
-        })
+        //> Bad Candy Loop
+            let badCandyLoop = this.time.addEvent({
+                delay: 100,
+                callback: generateBadCandy,
+                callbackScope: this,
+                loop: true 
+            })
     
-    //Candy Collisions
+        //Candy Collisions
     
-    //> When hitted by the candy
-    this.physics.add.overlap (this.player, badCandy, hitByBadCandy, null, this);
+            //> When hitted by the candy
+                this.physics.add.overlap (this.player, badCandy, hitByBadCandy, null, this);
 
-    function hitByBadCandy(player, candy) {
-        if (candy.body.touching) {
-            candy.disableBody(true, true)
-            hit.play();
-            let hitTween = this.tweens.add({
-                targets: player,
-                angle: 360,
-                x: player.x - 50,
-                y: player.y - 20,
-                ease: 'Quadratic',
-                duration: 600,
-                onComplete: function() {
-                gameState.hearts -=1;
-                heartText.setText(`${gameState.hearts}`);
-                console.log(gameState.hearts);
-                 },
-                 onCompleteScope: this
-            });
-        } 
-    }
+                    function hitByBadCandy(player, candy) {
+                        if (candy.body.touching) {
+                         candy.disableBody(true, true)
+                         hit.play();
+                         let hitTween = this.tweens.add({
+                         targets: player,
+                         angle: 360,
+                         x: player.x - 50,
+                         y: player.y - 20,
+                         ease: 'Quadratic',
+                         duration: 600,
+                         onComplete: function() {
+                          gameState.hearts -=1;
+                          heartText.setText(`${gameState.hearts}`);
+                          console.log(gameState.hearts);
+                          },
+                          onCompleteScope: this
+                         });
+                        } 
+                    }
 
-    //>CLEAR CANDY ------------------------------------------------------------------------------------------------------
-    this.physics.add.overlap (this.magic, badCandy, clearCandy, null, this);
+            //>CLEAR CANDY ------------------------------------------------------------------------------------------------------
+                this.physics.add.overlap (this.magic, badCandy, clearCandy, null, this);
 
-    function clearCandy(magic, candy) {
-        if (candy.body.touching) {
-            candy.disableBody(true, true);
-            pop.play();
-            //gameState.score +=20;
-            //scoreText.setText(`${gameState.score}`);
-            // this.tweens.add({
-            //     targets: candy,
-            //     angle: 360,
-            //     x: candy.x - 50,
-            //     y: candy.y - 20,
-            //     ease: 'Quadratic',
-            //     duration: 600,
-            //  });
-        } 
-    }
+                function clearCandy(magic, candy) {
+                    if (candy.body.touching) {
+                        candy.disableBody(true, true);
+                        pop.play();
+                    } 
+                }
 
-    //level clear
+    //LEVEL CLEAR -----------------------------------------------------------------------------------------------------------------
     this.physics.add.overlap(this.player, endLevel, function() {
         this.cameras.main.fade(800, 0, 0, 0, false, function(camera, progress) {
           if (progress > .9) {
@@ -207,13 +204,6 @@ preload () {
           }
         });
       }, null, this);
-
-
-    //   //BOSS test ----------------------------------------------------------------------------------------------------------
-	//     let boss = this.boss = this.physics.add.sprite(400, 40, 'boss').setScale(1);
-    //     player.setBounce(0.3); //little bounce as you fall
-    //     boss.setCollideWorldBounds(true);
-    //     //this.bossAttack.create(boss.x, boss.y, 'magic').setVelocityX(-300).setScale(0.05);
 }
 
 // UPDATE ---------------------------------------------------------------------------------------------------------------------------------
@@ -234,7 +224,7 @@ update () {
 		this.player.setVelocityY(-500);
         this.player.anims.play('jump', true);
 	 
-    //Attack
+    //Attack Input
     
     } else if (cursors.space.isDown) {
         this.magic.create(this.player.x, this.player.y -40, 'magic').setGravityY(-3000).setScale(0.05);
@@ -242,14 +232,14 @@ update () {
         attack.play(); 
     } 
      
-    //Idle
+    //Idle Input
 
 	else {
 		this.player.setVelocityX(0);
         this.player.anims.play('idle', true);
 	}
     
-    //> falling from the platforms -------------------------------------------------------------------------------------------------------------------
+    // FALLING -------------------------------------------------------------------------------------------------------------------
 
     if (this.player.y > 800){
         this.cameras.main.shake(240, .01, false, function(camera, progress) {
@@ -262,7 +252,7 @@ update () {
       });
     }
     
-    //> game over ------------------------------------------------------------------------------------------------------------------------------------
+    // GAME OVER ------------------------------------------------------------------------------------------------------------------------------------
     if(gameState.hearts === 0) {
         this.scene.stop('GameScene');
         gameState.theme.stop();
@@ -272,3 +262,7 @@ update () {
     
 }
 }
+
+/*  /)  /)  ~ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+   ( •-• )  ~ ♡  Made with love by Milki Kiwi ♡
+    /づづ ~  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    */
