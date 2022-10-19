@@ -8,7 +8,7 @@ class GameScene extends Phaser.Scene {
 
     // LOADING THE MATERIAL WE NEED ---------------------------------------------------------------------------------
 preload () {	
-    this.load.image('bg', 'img/bg.png');
+    this.load.image('bg', 'img/bg.png')
     this.load.spritesheet('run', 'img/sprites/run.png', {frameWidth: 1000, frameHeight: 1000});
     this.load.spritesheet('player', 'img/sprites/playerSprites.png', {frameWidth: 1000, frameHeight: 1000})
 	this.load.image('plataforma', 'img/plataforma.png');
