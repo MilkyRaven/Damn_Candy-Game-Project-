@@ -1,8 +1,3 @@
-/*  /)  /)  ~ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-   ( •-• )  ~ ♡  Damn Candy ♡ by Milki Kiwi
-    /づづ ~  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    */
-
-
 // HERE IS WHERE THE MAIN GAME GOES (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
 
 // let's create a GameScene class that holds the first level logic
