@@ -6,8 +6,8 @@
  - 96% created with **Javascript** & **Phaser**
 
 ## How to run?
-Check it out [here](https://milkyraven.github.io/Damn_Candy-Game-Project-/). It's recomended to run it on Chrome.
-Alternatively: Download/Clone this repository and run it locally with a live launcher. 
+- Check it out [here](https://milkyraven.github.io/Damn_Candy-Game-Project-/) (Highly recomended to run it on Chrome)
+- Alternatively: Download/Clone this repository and run it locally with a live launcher 
 
 ## How can I play?
 - run: *left/rigth* arrow keys
