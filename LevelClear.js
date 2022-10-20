@@ -15,7 +15,7 @@ class LevelClear extends Phaser.Scene {
         this.add.text(880, 520, `${gameState.score}`, {fill: '#FFFFFF', fontSize: '40px'})
         
         //RATINGS
-        if (gameState.score <= 400){
+        if (gameState.score <= 600){
         let rate = this.add.text(690, 0, "B", {fill: '#F8DA49', fontSize: '100px'})
         this.tweens.add({
             angle: 360,
@@ -33,7 +33,7 @@ class LevelClear extends Phaser.Scene {
             y: 500,
             ease: 'Bounce',
             });
-            } else if (gameState.score >= 799){
+            } else if (gameState.score <= 800){
                 let rate = this.add.text(690, 0, "S", {fill: '#F8DA49', fontSize: '100px'})
                 this.tweens.add({
                     angle: 360,
